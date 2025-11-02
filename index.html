@@ -1,239 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>The Silent Threat: Air Pollution & Ozone Depletion</title>
-  <style>
-    /* --- THEME: AIR POLLUTION AND OZONE DEPLETION --- */
-    
-    /* Color Palette Variables */
-    :root {
-      --color-smog-dark: #222222; /* Deep Charcoal/Smog */
-      --color-smog-light: #444444; /* Dark Grey/Haze */
-      --color-ozone-accent: #00e5ff; /* Bright Cyan for Ozone/Danger */
-      --color-text-light: #e0e0e0; /* Off-White for text contrast */
-      --color-card-bg: rgba(0, 0, 0, 0.85); /* Nearly black card background */
-    }
+  <meta charset="UTF-8">
+  <title>Air Pollution & Ozone Depletion</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      color: #e0e0e0;
+    }
 
-    html, body {
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      color: var(--color-text-light);
-    }
+    body {
+      --s: 100px;
+      --c-inner: #444;
+      --c-outer: #666;
+      --c-outer2: #999;
+      background: radial-gradient(
+        circle at 50% 99%,
+        transparent 10%,
+        var(--c-inner) 10% 30%,
+        var(--c-outer) 30% 60%,
+        var(--c-outer2) 60% 100%,
+        transparent 100%
+      );
+      background-size: var(--s) var(--s);
+      animation: move 5s infinite linear;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
 
-    /* Updated Background: Smoky Haze Pattern */
-    body {
-      --s: 150px; /* Larger size for a hazier look */
-      --c-inner: var(--color-smog-light);
-      --c-outer: var(--color-smog-dark);
-      --c-outer2: var(--color-smog-light);
-      background: radial-gradient(
-        circle at 50% 90%, /* Adjusted for a softer look */
-        transparent 5%,
-        var(--c-inner) 5% 25%,
-        var(--c-outer) 25% 55%,
-        var(--c-outer2) 55% 80%,
-        transparent 80%
-      );
-      background-size: var(--s) var(--s);
-      /* Slowed animation for a subtle, flowing smog effect */
-      animation: move 12s infinite linear alternate; 
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-    }
+    @keyframes move {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 100% 0;
+      }
+    }
 
-    @keyframes move {
-      from {
-        background-position: 0 0;
-      }
-      to {
-        background-position: 100% 100%; /* Move both x and y for a drift */
-      }
-    }
+    .card {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 100vh;
+      background: rgba(20, 20, 20, 0.9);
+      border-radius: 20px;
+      padding: 50px 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
 
-    .card {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      height: 100vh;
-      background: var(--color-card-bg); /* Use the new card background variable */
-      border-radius: 20px;
-      padding: 50px 40px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 15px var(--color-smog-dark);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
-    }
+    .card::before,
+    .card::after {
+      position: absolute;
+      content: "";
+      width: 20%;
+      height: 20%;
+      background-color: rgba(180, 255, 100, 0.2);
+      transition: all 0.5s;
+      z-index: 1;
+    }
 
-    /* Ozone Accent Shapes on Card */
-    .card::before,
-    .card::after {
-      position: absolute;
-      content: "";
-      width: 25%; /* Slightly larger */
-      height: 25%;
-      background-color: var(--color-ozone-accent);
-      opacity: 0.3; /* Subtle glow */
-      filter: blur(10px); /* Blurry effect */
-      transition: all 0.5s;
-      z-index: 1;
-    }
+    .card::before {
+      top: 0;
+      right: 0;
+      border-radius: 0 15px 0 100%;
+    }
 
-    .card::before {
-      top: -10px; 
-      right: -10px;
-      border-radius: 0 25px 0 100%;
-    }
+    .card::after {
+      bottom: 0;
+      left: 0;
+      border-radius: 0 100% 0 15px;
+    }
 
-    .card::after {
-      bottom: -10px; 
-      left: -10px;
-      border-radius: 0 100% 0 25px;
-    }
+    .card:hover::before,
+    .card:hover::after {
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      background-color: rgba(180, 255, 100, 0.08);
+      box-shadow: 0 0 60px rgba(180, 255, 100, 0.4) inset;
+    }
 
-    /* Hover effect to simulate 'breaching' the pollution/smog */
-    .card:hover::before,
-    .card:hover::after {
-      width: 100%;
-      height: 100%;
-      border-radius: 20px;
-      background-color: var(--color-ozone-accent);
-      opacity: 0.15; /* Less intense on full hover */
-      box-shadow: 0 0 80px var(--color-ozone-accent) inset;
-    }
+    .card-content,
+    .hover-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      transition: opacity 0.5s ease;
+      z-index: 2;
+    }
 
-    .card-content,
-    .hover-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      transition: opacity 0.5s ease;
-      z-index: 2;
-      /* Force contrast on dark background */
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); 
-    }
+    .card-content {
+      opacity: 0;
+    }
 
-    .card-content {
-      opacity: 0;
-    }
+    .card:hover .card-content {
+      opacity: 1;
+    }
 
-    .card:hover .card-content {
-      opacity: 1;
-    }
+    .hover-text {
+      opacity: 1;
+      color: #dcdcdc;
+    }
 
-    .hover-text {
-      opacity: 1;
-      color: var(--color-text-light);
-    }
+    .card:hover .hover-text {
+      opacity: 0;
+    }
 
-    .card:hover .hover-text {
-      opacity: 0;
-    }
+    .card-content h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #d8ffb0;
+      text-shadow: 0 0 15px rgba(150, 255, 120, 0.3);
+    }
 
-    .card-content h1 {
-      font-size: 2.2rem;
-      margin-bottom: 25px;
-      color: var(--color-ozone-accent); /* Accent color for main title */
-    }
+    .card-content p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      color: #d6d6d6;
+    }
 
-    .card-content p {
-      font-size: 1.15rem;
-      margin-bottom: 30px;
-      color: var(--color-text-light);
-    }
+    .hover-text h2 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #b8ff70;
+      text-shadow: 0 0 8px rgba(180, 255, 100, 0.3);
+    }
 
-    .hover-text h2 {
-      font-size: 1.8rem; /* Slightly larger */
-      margin-bottom: 10px;
-      color: var(--color-ozone-accent); 
-    }
+    .hover-text p {
+      font-size: 1rem;
+      line-height: 1.5;
+      font-weight: normal;
+      color: #ccc;
+    }
 
-    .hover-text p {
-      font-size: 1.1rem;
-      line-height: 1.5;
-      font-weight: normal;
-    }
+    button {
+      font-size: 18px;
+      color: #e1e1e1;
+      font-family: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      position: relative;
+      border: none;
+      background: none;
+      text-transform: uppercase;
+      transition: color 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
 
-    /* Button Styling Update */
-    button {
-      font-size: 18px;
-      color: var(--color-text-light);
-      font-family: inherit;
-      font-weight: 800;
-      cursor: pointer;
-      position: relative;
-      border: none;
-      background: none;
-      text-transform: uppercase;
-      transition: color 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
+    button:focus,
+    button:hover {
+      color: #b8ff70;
+    }
 
-    button:focus,
-    button:hover {
-      color: var(--color-ozone-accent);
-    }
+    button:focus:after,
+    button:hover:after {
+      width: 100%;
+      left: 0%;
+    }
 
-    button:focus:after,
-    button:hover:after {
-      width: 100%;
-      left: 0%;
-    }
+    button:after {
+      content: "";
+      pointer-events: none;
+      bottom: -2px;
+      left: 50%;
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: #b8ff70;
+      transition: width 400ms, left 400ms;
+      transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
 
-    button:after {
-      content: "";
-      pointer-events: none;
-      bottom: -2px;
-      left: 50%;
-      position: absolute;
-      width: 0%;
-      height: 2px;
-      background-color: var(--color-ozone-accent);
-      transition: width 400ms, left 400ms;
-      transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    footer {
-      margin-top: 80px;
-      font-size: 0.9rem;
-      color: var(--color-smog-light); /* Subtler color for footer */
-      z-index: 2;
-    }
-  </style>
+    footer {
+      margin-top: 80px;
+      font-size: 0.9rem;
+      color: #a0a0a0;
+      z-index: 2;
+    }
+  </style>
 </head>
 <body>
-  <div class="card">
-        <div class="hover-text">
-      <h2>The Critical Crisis Above and Below</h2>
-      <p>
-        The air we breathe and the layer that protects us. Explore the causes, effects, and solutions for **Air Pollution** and **Ozone Depletion**.
-      </p>
-    </div>
+  <div class="card">
+    <div class="hover-text">
+      <h2>Where the Sky Fades to Grey</h2>
+      <p>Breathe in awareness. See how air pollution and ozone depletion silently reshape our world — and how we can still clear the skies.</p>
+    </div>
 
-        <div class="card-content">
-      <h1>OZONE DEPLETION & AIR POLLUTION</h1>
-      <p>
-        Understand how industrial pollutants damage the **stratosphere's ozone layer**, and the pervasive threat of **smog and particulate matter** on our health.
-      </p>
-      
-            <a href="https://docs.google.com/presentation/d/1SUGNmSgCVIrWHi1fMchTs98lH13VWagK/edit?slide=id.p1#slide=id.p1" target="_blank">
-        <button>View Full Presentation</button>
-      </a>
-      <footer>
-        A Presentation on Environmental Health from Class X
-      </footer>
-    </div>
-  </div>
+    <div class="card-content">
+      <h1>Air Pollution & Ozone Depletion</h1>
+      <p>
+        The thinning ozone and rising smog threaten life and light on Earth. Learn about their causes, effects, and what we can do to restore balance.
+      </p>
+      <a href="https://docs.google.com/presentation/d/1SUGNmSgCVIrWHi1fMchTs98lH13VWagK/edit?slide=id.p1#slide=id.p1" target="_blank">
+        <button>View Presentation</button>
+      </a>
+      <footer>
+        Presented with 🌍 and ⚠️ by Class X
+      </footer>
+    </div>
+  </div>
 </body>
 </html>
